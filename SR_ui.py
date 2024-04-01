@@ -10,7 +10,7 @@ from PIL import Image
 import warnings
 warnings.filterwarnings('ignore')
 
-data = pd.read_csv("final (1).csv")
+df = pd.read_csv("final (1).csv")
 
 class App:
     def model(self):
@@ -41,7 +41,6 @@ class App:
         if selected == "Explore Data":
             fl = st.file_uploader(":file_folder: Upload a file", type=(["csv", "txt", "xlsx", "xls"]))
 
-            df = pd.read_csv("ResaleflatpricesbasedonregistrationdatefromJan2017onwards (1).csv")
             st.sidebar.header("Choose your filter: ")
 
             # Create for town
@@ -131,7 +130,7 @@ class App:
             col1, col2, col3 = st.columns([4, 10, 2])
             with col2:
                 st.markdown(
-                    "<h1 style='font-size: 80px;'><span style='color: cyan;'>Flat resale price</span><span style='color: white;'> Prediction</span> </h1>",
+                    "<h1 style='font-size: 80px;'><span style='color: cyan;'>Flat resale price</span><span style='color:Black;'> Prediction</span> </h1>",
                     unsafe_allow_html=True)
             col1, col2, col3 = st.columns([4, 10, 5])
             with col2:
@@ -165,8 +164,8 @@ class App:
 
                 st.markdown("<h1 style='font-size: 30px;'><span style='color: cyan;'>Town </h1>",
                             unsafe_allow_html=True)
-                town_dict = dict(zip(data['town'].unique(), data['town_code'].unique()))
-                town_list = data['town'].unique()
+                town_dict = dict(zip(df['town'].unique(), df['town_code'].unique()))
+                town_list = df['town'].unique()
                 town_key = st.selectbox('Town', options=town_list)
                 town = town_dict[town_key]
                 st.write("")
@@ -190,8 +189,8 @@ class App:
 
                 st.markdown("<h1 style='font-size: 30px;'><span style='color: cyan;'>Flat_Model </h1>",
                             unsafe_allow_html=True)
-                model_dict = dict(zip(data['flat_model'].unique(), data['flat_modelcode'].unique()))
-                model_list = data['flat_model'].unique()
+                model_dict = dict(zip(df['flat_model'].unique(), df['flat_modelcode'].unique()))
+                model_list = df['flat_model'].unique()
                 flat_model = st.selectbox('Flat Model', options=model_list)
                 flat_modelcode = model_dict[flat_model]
 
@@ -213,7 +212,7 @@ class App:
                 predict_data = [selling_month, selling_year, town, storey_min, storey_max,
                                 floor_area_sqm, flat_modelcode, lease_commence_date]
 
-                with open('S1_regression (2).pkl', 'rb') as f:
+                with open("S1_regression (2).pkl", 'rb') as f:
                     model = pickle.load(f)
             col1, col2, col3 = st.columns([10, 1, 10])
 
@@ -222,7 +221,7 @@ class App:
                 if st.button('Process'):
                     x = model.predict([predict_data])
                     st.markdown(
-                        f"<h1 style='font-size: 30px;'><span style='color: cyan;'>Predicted Flat Resale: </span><span style='color: white;'> {x[0]}</span> </h1>",
+                        f"<h1 style='font-size: 30px;'><span style='color: cyan;'>Predicted Flat Resale: </span><span style='color: Black;'> {x[0]}</span> </h1>",
                         unsafe_allow_html=True)
 
         if selected == "Contact":
@@ -231,7 +230,7 @@ class App:
                 Name = (f'{"Name :"} {"Viswanathan"}')
                 mail = (f'{"Mail :"} {"viswanathan9692@gmail.com"}')
                 description = "An Aspiring DATA-SCIENTIST..!"
-                social_media = {"GITHUB": "https://github.com"}
+                social_media = {"GITHUB": "https://github.com/Viswanathan25"}
                 st.header('Singapore Resale Flat resale_prices Predicting')
                 st.subheader("The objective of this project is to develop a machine learning model and deploy it as a user-friendly web application that predicts the resale prices of flats in Singapore. This predictive model will be based on historical data of resale flat transactions, and it aims to assist both potential buyers and sellers in estimating the resale value of a flat.")
                 st.write("---")
